@@ -1,0 +1,33 @@
+body, .container {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.section {
+    padding: 3rem 0;
+}
+
+.title {
+    text-align: center;
+}
+
+.card, .add-recipe {
+    margin-bottom: 20px;
+}
+
+.content p.card-header-title {
+    margin-bottom: 0;
+}
+
+input.edit {
+    width: 950px;
+    padding: .75rem;
+}
+
+.card-header input.edit {
+    font-weight: 700;
+}
+
+.card-content input.edit {
+    font-weight: 500;
+}

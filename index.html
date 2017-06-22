@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Vue.js Recipies</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app" class="content">
+        <section class="hero is-success recipeapp">
+            <div class="hero-body">
+                <header class="header">
+                    <h1 class="title is-1">Recipe Box<br/> with Vue.js, Bulma.io and local storage</h1>
+                </header>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="card" v-for="(recipe, index) in recipes">
+                    <single-recipe :recipe="recipe"></single-recipe>
+                </div>
+                <button class="button is-outlined is-info is-medium add-recipe" @click="toggleAddRecipe">Add a new recipe</button>
+                <form class="form" v-if="isAddRecipe">
+                    <label class="label">Name of the Recipe</label>
+                    <input class="input" type="text" v-model="newRecipe.name">
+                    <p>{{newRecipe.name}}</p>
+                    <label class="label">Ingredients</label>
+                    <input class="input" type="text" v-model="newRecipe.ingredients">
+                    <button class="button is-success" v-on:click.prevent="addRecipe">Save</button>
+                    <button class="button is-danger" v-on:click.prevent="cancelAddingNewRecipe(newRecipe)">Cancel</button>
+                </form>
+            </div>
+        </section>
+    </div>
+    <template id="single-recipe">
+        <div>
+            <header class="card-header" :key="recipe.id">
+                <p class="card-header-title" v-if="edit">
+                    {{recipe.name}}
+                </p>
+                <input class="edit" type="text" v-model="recipe.name" v-else>
+                <a class="card-header-icon">
+                            <span class="icon" @click="toggleRecipe(recipe)">
+                        <span class="fa fa-angle-down"></span>
+                            </span>
+                        </a>
+            </header>
+            <div v-if="isVisible">
+                <div class="card-content">
+                    <div class="content">
+                        <p v-if="edit">{{recipe.details}}</p>
+                        <input class="edit" type="textarea" v-model="recipe.details" v-else>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a class="card-footer-item" @click="edit = !edit">{{editButtonText}}</a>
+                    <a class="card-footer-item" @click="removeRecipe(recipe)">Delete</a>
+                </footer>
+            </div>
+        </div>
+    </template>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
